@@ -9,4 +9,16 @@
     <PackageReference Include="Chroma" Version="0.37.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Assets\sprites\statusBlue.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\sprites\statusEmpty.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\sprites\statusRed.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

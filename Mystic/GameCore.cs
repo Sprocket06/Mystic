@@ -1,12 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Numerics;
 using Chroma.Diagnostics.Logging;
 using Chroma;
 using Chroma.ContentManagement;
+using Chroma.ContentManagement.FileSystem;
 using Mystic.Scenes;
 using Chroma.Graphics;
 using Chroma.Input;
-using Chroma.Diagnostics.Logging;
 
 namespace Mystic
 {
@@ -16,7 +17,9 @@ namespace Mystic
         public Log Log = LogManager.GetForCurrentAssembly();
         public GameCore()
         {
-            Content = base.Content;
+            Content = new FileSystemContentProvider(
+                Path.Combine(AppContext.BaseDirectory, "Assets")
+            );
             SceneManager.SetActiveScene<Main>();
             Log.Info("Hello!");
             //Window.TopMost = true;
@@ -28,6 +31,7 @@ namespace Mystic
         }
         protected override void Draw(RenderContext context)
         {
+            context.Clear(Color.Gray);
             SceneManager.ActiveScene.Draw(context);
         }
         protected override void KeyPressed(KeyEventArgs e)
