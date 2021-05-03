@@ -9,23 +9,7 @@ namespace Mystic.Physics
     {
         public Vector2 Position { get; set; }
 
-        public void Move(Vector2 newPos)
-        {
-            Position = newPos;
-            List<Collider> Collisions = new List<Collider>();
-            foreach (Collider shape in CollisionManager.Instance.Colliders)
-            {
-                if (Object.ReferenceEquals(shape, this)) continue;
-                if (IsIntersecting(shape))
-                {
-                    Collisions.Add(shape);
-                }
-            }
-            if(Collisions.Count != 0)
-            {
-                Collision?.Invoke(this, new CollisionEventArgs(Collisions));
-            }
-        }
+        public abstract void Move(Vector2 newPos);
         public abstract dynamic CollisionShape { get; set; }
 
         public Collider()
@@ -35,6 +19,7 @@ namespace Mystic.Physics
 
         public bool IsIntersecting(Collider c)
         {
+            bool result = false;
             if (this is RectangleCollider)
             {
                 if (c is CircleCollider)
@@ -43,7 +28,7 @@ namespace Mystic.Physics
                 }
                 else if (c is RectangleCollider)
                 {
-                    return c2AABBtoAABB(c.CollisionShape, this.CollisionShape);
+                    result = c2AABBtoAABB(c.CollisionShape, this.CollisionShape);
                 }
             }
             else if (this is CircleCollider)
@@ -57,10 +42,11 @@ namespace Mystic.Physics
                     return c2CircletoAABB(this.CollisionShape, c.CollisionShape);
                 }
             }
+            return result;
             throw new Exception("Unsupported Collider Type");
         }
 
-        public event EventHandler<CollisionEventArgs> Collision;
+        public abstract event EventHandler<CollisionEventArgs> Collision;
 
     }
 }
