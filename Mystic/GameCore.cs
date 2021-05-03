@@ -11,16 +11,17 @@ using Chroma.Input;
 
 namespace Mystic
 {
-    class GameCore : Game
+    class GameCore : Game 
     {
         public static new IContentProvider Content { get; private set; }
-        public Log Log = LogManager.GetForCurrentAssembly();
-        public GameCore()
+        public static Log Log { get; private set; } 
+        public GameCore() : base(new(false,false))
         {
             Content = new FileSystemContentProvider(
                 Path.Combine(AppContext.BaseDirectory, "Assets")
             );
-            SceneManager.SetActiveScene<Main>();
+            Log = LogManager.GetForCurrentAssembly();
+            SceneManager.SetActiveScene<CollisionTest>();
             Log.Info("Hello!");
             //Window.TopMost = true;
         }

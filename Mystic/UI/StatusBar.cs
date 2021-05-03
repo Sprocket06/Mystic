@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Chroma;
 using Chroma.Graphics;
 using System.Drawing;
+using EasingSharp;
 using Color = Chroma.Graphics.Color;
 
 namespace Mystic.UI
@@ -55,5 +56,11 @@ namespace Mystic.UI
             ctx.DrawTexture(statusBarBlue, Position, new Vector2(1), new Vector2(0, 0), 0);
             RenderSettings.Scissor = Rectangle.Empty;
         }
+
+        public void setHP(int newHP)
+        {
+            Easing.easeOutCirc(p => Health = (int)p, Health, newHP, 1000);
+        }
+
     }
 }

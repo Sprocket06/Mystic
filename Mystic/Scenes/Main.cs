@@ -3,6 +3,8 @@ using Chroma.Graphics;
 using Chroma.Input;
 using Mystic.Entities;
 using Mystic.UI;
+using EasingSharp;
+
 
 
 namespace Mystic.Scenes
@@ -31,7 +33,17 @@ namespace Mystic.Scenes
         }
         public override void MousePressed(MouseButtonEventArgs e)
         {
-            player.MoveTo(e.Position);
+            if(e.Button == MouseButton.Right)
+            {
+                player.MoveTo(e.Position);
+            }
+        }
+        public override void KeyPressed(KeyEventArgs e)
+        {
+            if(e.KeyCode == KeyCode.Space)
+            {
+                sBar.setHP(sBar.MaxHealth);
+            }
         }
     }
 }
