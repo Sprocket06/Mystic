@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 
 namespace Mystic
@@ -48,12 +44,12 @@ namespace Mystic
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct c2Manifold
+        public unsafe struct c2Manifold
         {
-            int count;
-            float[] depths;
-            c2v[] contact_points;
-            c2v n;
+            public int count;
+            public fixed float depths[2];
+            public c2v* contact_points;
+            public c2v n;
         }
 
         //Boolean Collision Detection
