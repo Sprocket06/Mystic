@@ -48,7 +48,7 @@ namespace Mystic.Scenes
             Collider collider = (Collider)ColliderObject;
             foreach(Collision c in e.collisions)
             {
-                collider.Move(collider.Position + (-c.collisionInfo.normal * c.collisionInfo.depths[0]));
+                collider.Move(collider.Position + (-c.collisionInfo.normal * (c.collisionInfo.depths[0]+1) ));
             }
         }
     }
