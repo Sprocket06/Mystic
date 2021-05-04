@@ -53,11 +53,11 @@ namespace Mystic.Physics
             {
                 if (c is CircleCollider)
                 {
-                    c2CircletoAABBManifold(c.CollisionShape, this.CollisionShape, ref m);
+                    c2CircletoAABBManifold(this.CollisionShape, c.CollisionShape, ref m);
                 }
                 else if (c is RectangleCollider)
                 {
-                    c2AABBtoAABBManifold(c.CollisionShape, this.CollisionShape, ref m);
+                    c2AABBtoAABBManifold(this.CollisionShape, c.CollisionShape, ref m);
                 }
             }
             else if (this is CircleCollider)
@@ -75,21 +75,18 @@ namespace Mystic.Physics
             {
                 throw new Exception("Unsupported Collider Type");
             }
-            //fuck
 
-            unsafe
+            manifold.count = m.count;
+            if (m.count != 0)
             {
-                manifold.count = m.count;
-                if(m.count != 0)
-                {
-                    manifold.depths[0] = m.depths[0];
-                    manifold.depths[1] = m.depths[1];
-                    manifold.contact_points[0] = new Vector2(m.contact_points[0].x, m.contact_points[0].y);
-                    manifold.contact_points[1] = new Vector2(m.contact_points[1].x, m.contact_points[1].y);
-                    manifold.normal = new Vector2(m.n.x, m.n.y);
-                }
-               
+                manifold.depths[0] = m.depths[0];
+                manifold.depths[1] = m.depths[1];
+                manifold.contact_points[0] = new Vector2(m.contact_points[0].x, m.contact_points[0].y);
+                manifold.contact_points[1] = new Vector2(m.contact_points[1].x, m.contact_points[1].y);
+                manifold.normal = new Vector2(m.n.x, m.n.y);
             }
+
+
             return m.count != 0;
         }
 

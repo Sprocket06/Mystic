@@ -44,11 +44,16 @@ namespace Mystic
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public unsafe struct c2Manifold
+        public struct c2Manifold
         {
             public int count;
-            public fixed float depths[2];
-            public c2v* contact_points;
+
+            [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.R4, SizeConst = 2)]
+            public float[] depths;
+
+            [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.Struct, SizeConst = 2)]
+            public c2v[] contact_points;
+
             public c2v n;
         }
 
