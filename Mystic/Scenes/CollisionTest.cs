@@ -34,7 +34,7 @@ namespace Mystic.Scenes
             if (collisionTest)
             {
                 GameCore.Log.Info($"Collision Normal: ({collisionInfo.normal.X}, {collisionInfo.normal.Y}) Count: {collisionInfo.count} depths: {collisionInfo.depths[0]}");
-                ctx.Line(testBoxTwo.Position, new Vector2(testBoxTwo.Position.X + collisionInfo.normal.X, testBoxTwo.Position.Y + collisionInfo.normal.Y), Color.Blue);
+                ctx.Line(collisionInfo.contact_points[0], collisionInfo.contact_points[0] + (-collisionInfo.normal * collisionInfo.depths[0]), Color.Blue);
             }
         }
 
