@@ -8,8 +8,8 @@ namespace Mystic.Physics
 {
     class CollisionEventArgs : EventArgs
     {
-        public List<Collider> collisions;
-        public CollisionEventArgs(List<Collider> c)
+        public List<Collision> collisions;
+        public CollisionEventArgs(List<Collision> c)
         {
             collisions = c;
         }

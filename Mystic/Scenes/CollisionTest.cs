@@ -16,7 +16,7 @@ namespace Mystic.Scenes
         {
 
             testBoxOne = new RectangleCollider(new Vector2(100, 100), new Vector2(50, 50));
-            testBoxTwo = new RectangleCollider(new Vector2(200, 150), new Vector2(50, 50));
+            testBoxTwo = new RectangleCollider(new Vector2(125, 125), new Vector2(50, 50));
 
             testBoxOne.Collision += OnCollision;
         }
@@ -33,7 +33,6 @@ namespace Mystic.Scenes
 
             if (collisionTest)
             {
-                GameCore.Log.Info($"Collision Normal: ({collisionInfo.normal.X}, {collisionInfo.normal.Y}) Count: {collisionInfo.count} depths: {collisionInfo.depths[0]}");
                 ctx.Line(collisionInfo.contact_points[0], collisionInfo.contact_points[0] + (-collisionInfo.normal * collisionInfo.depths[0]), Color.Blue);
             }
         }
@@ -44,9 +43,13 @@ namespace Mystic.Scenes
             testBoxOne.Move(mousePos);
         }
 
-        private void OnCollision(object collider, CollisionEventArgs e)
+        private void OnCollision(object ColliderObject, CollisionEventArgs e)
         {
-            //GameCore.Log.Info("Collision!");
+            Collider collider = (Collider)ColliderObject;
+            foreach(Collision c in e.collisions)
+            {
+                collider.Move(collider.Position + (-c.collisionInfo.normal * c.collisionInfo.depths[0]));
+            }
         }
     }
 }

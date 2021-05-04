@@ -23,13 +23,15 @@ namespace Mystic.Physics
         {
             Position = newPos;
             CollisionShape = new c2AABB(new c2v(Position.X, Position.Y), new c2v(Position.X + Size.X, Position.Y + Size.Y));
-            List<Collider> Collisions = new List<Collider>();
+            List<Collision> Collisions = new();
+            Manifold cInfo;
             foreach (Collider shape in CollisionManager.Instance.Colliders)
             {
                 if (Object.ReferenceEquals(shape, this)) continue;
-                if (IsIntersecting(shape))
+                cInfo = new();
+                if (IsIntersecting(shape, ref cInfo))
                 {
-                    Collisions.Add(shape);
+                    Collisions.Add(new Collision(shape,cInfo));
                 }
             }
             if (Collisions.Count != 0)
