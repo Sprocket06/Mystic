@@ -21,7 +21,7 @@ namespace Mystic
                 Path.Combine(AppContext.BaseDirectory, "Assets")
             );
             Log = LogManager.GetForCurrentAssembly();
-            SceneManager.SetActiveScene<CollisionTest>();
+            SceneManager.SetActiveScene<MapTest>();
             Log.Info("Hello!");
             //Window.TopMost = true;
         }
